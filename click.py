@@ -19,8 +19,8 @@ def makeWeapon():
 def buildHouse():
     pyautogui.moveTo(600,270)
     pyautogui.click(600,270)
-    pyautogui.moveTo(440, 340)
-    pyautogui.click(440, 340)
+    pyautogui.moveTo(440, 360)
+    pyautogui.click(440, 360)
 def enterMarket():
     pyautogui.moveTo(1000,270)
     pyautogui.click(1000,270)
@@ -116,7 +116,7 @@ def checkFood(food, gold, stone):
                 usableStone = usableStone-1
 
 def checkPopularity(popularity, food):
-    if popularity < 30 and food > 60:
+    if popularity < 35 and food > 60:
         buyFeast()
 
 def checkStone(stone):
@@ -130,7 +130,7 @@ def checkStone(stone):
 def checkWood(wood, gold):
     if wood <200 and gold > 1000:
         enterMarket()
-        setHundo()
+        setHund()
         for x in range(5):
             buyLumber()
         setOne()
@@ -139,9 +139,12 @@ def checkWood(wood, gold):
 
 def checkPop(popNum, woodNum):
 
-    if popNum < 25:
+    popNum = int(popNum/5)
+    if popNum < 5:
+        loop = int(5-popNum)
+        print("popNum is small")
 
-        loop = int((5-popNum/5))
+
         for x in range(loop):
             if woodNum > 100:
                 buildHouse()
@@ -169,7 +172,7 @@ def bot():
         root = htmlElem
         stats1 = root.xpath('//div[@class="right col-lg-4"]/text()')
         pop = stats1[0]
-        
+
         cleanPop = ((re.sub("[^0-9]", "", pop)))
 
 
@@ -179,7 +182,7 @@ def bot():
             cleanestPop = int(cleanPop[1:])
         elif len(cleanPop)==4:
             cleanestPop = int(cleanPop[2:])
-=
+
         pop2 = stats1[1]
         cleanPop2 = int(re.sub("[^0-9]", "", pop2))
 
@@ -193,12 +196,12 @@ def bot():
         # if weapons:
         #     s = int(re.sub("[^0-9]", "", weapons[0]))
         #     #print(s)
-        # checkFood(food,gold,stone)
-        # checkPopularity(cleanPop2, food)
-        # checkPop(cleanestPop,wood)
-        # checkPopularity(cleanPop2, food)
-        # checkStone(stone)
-        # checkWood(wood,gold)
+        checkFood(food,gold,stone)
+        checkPopularity(cleanPop2, food)
+        checkPop(cleanestPop,wood)
+        checkPopularity(cleanPop2, food)
+        checkStone(stone)
+        checkWood(wood,gold)
         time.sleep(3)
 
 
